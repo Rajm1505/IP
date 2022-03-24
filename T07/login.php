@@ -6,6 +6,11 @@ if (isset($_SESSION['logginfailed'])) {
     unset($_SESSION['logginfailed']);
 }
 
+$usercookie = isset($_COOKIE['user']) ? $_COOKIE['user'] : '';
+$passwordcookie = isset($_COOKIE['password']) ? $_COOKIE['password'] : '';
+$rememberme = isset($_COOKIE['user']) ? 'checked' : '';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -26,20 +31,22 @@ if (isset($_SESSION['logginfailed'])) {
 
     <div class="container">
         <h2>Login Form</h2>
-        <p class="text-danger"><?=$logginfailed?></p>
+        <p class="text-danger"><?= $logginfailed ?></p>
         <form action="validateuser.php" method="post" id="clientform">
             <div class="form-group">
                 <label for="email">Username:</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter Email" name="username">
+                <input type="text" class="form-control" id="username" placeholder="Enter Email" name="username" value="<?= $usercookie ?>">
             </div>
             <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" value="<?= $passwordcookie ?>">
             </div>
             <div class="form-group mt-3">
+                <input type="checkbox" name="rememberme" id="rememberme" <?=$rememberme?>>
+                <label for="rememberme">Remember me</label></br>
                 <button type="submit" id="btnSubmit" class="btn btn-primary">Submit</button>
                 <!-- <button type="submit" id="btnReSubmit" class="btn btn-primary">Re-Submit</button> -->
-                <a href="registration.php" class="btn btn-warning">Not a user? Register from here</a>
+                <!-- <a href="registration.php" class="btn btn-warning">Not a user? Register from here</a> -->
             </div>
         </form>
     </div>
